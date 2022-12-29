@@ -1,4 +1,35 @@
 (function() {
+
+  var form, data;
+  var file;
+  var fReader = new FileReader();
+
+  fReader.onloadend = function(e) {
+    if (e.target.error != null) {
+      showError("File " + file.name + " could not be read.");
+      return;
+    } else {
+      data['fileData'] = e.target.result;
+      // data['formDataNameOrder'] = JSON.stringify(JSON.parse(data['formDataNameOrder']).concat('fileData'));
+      submitForm();
+    }
+  };
+
+  function validEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+  }
+
+  function validateHuman(honeypot) {
+    if (honeypot) {  //if hidden form filled up
+      console.log("Robot Detected!");
+      return true;
+    } else {
+      console.log("Welcome Human!");
+    }
+  }
+
+
   // get all data in form and return object
   function getFormData(form) {
     var elements = form.elements;
@@ -26,18 +57,44 @@
       var element = elements[name];
       
       // singular form elements just have one value
-      formData[name] = element.value;
+      var value = element.value;
+      // file = element.files && element.files[0];
+      // if (file) {
+
+      //   fReader.readAsDataURL(file);
+        
+        // fReader.readAsDataURL(file);
+        // fReader.readAsBinaryString(file);
+        // fReader.onload = function() {
+        //   console.log(btoa(fReader.result));
+        // };
+
+        // fReader.onload = (function(theFile) {
+        //   return function(e) {
+        //     var binaryData = e.target.result;
+        //     //Converting Binary Data to base 64
+        //     var base64String = window.btoa(binaryData);
+        //     //showing file converted to base64
+        //     value = base64String;
+        //     alert('File converted to base64 successfuly!');
+        //   };
+        // })(file);
+        
+        // value = element.files[0].name;
+      //   value = file.name;
+      // }
+      formData[name] = value;
 
       // when our element has multiple items, get their values
       if (element.length) {
-        var data = [];
+        var arr = [];
         for (var i = 0; i < element.length; i++) {
           var item = element.item(i);
           if (item.checked || item.selected) {
-            data.push(item.value);
+            arr.push(item.value);
           }
         }
-        formData[name] = data.join(', ');
+        formData[name] = arr.join(', ');
       }
     });
 
@@ -50,8 +107,24 @@
     return {data: formData, honeypot: honeypot};
   }
 
+  function getFile() {
+    var files = document.getElementById("image").files;
+
+    file = files && files[0];
+    if (!file) {
+      return;
+    }
+
+    fReader.readAsDataURL(file);
+  }
+
   function handleFormSubmit(event) {  // handles form submit without any jquery
     event.preventDefault();           // we are submitting via xhr below
+    form = event.target;
+    data = getFormData(form);         // get the values submitted in the form
+
+    // Modify data if we have a file, get that before continuing!
+    getFile();
     var form = event.target;
     var formData = getFormData(form);
     var data = formData.data;
@@ -60,6 +133,26 @@
     if (formData.honeypot) {
       return false;
     }
+    */
+  }
+
+  function submitForm() {
+    if( data.email && !validEmail(data.email) ) {   // if email is not valid show error
+      var invalidEmail = form.querySelector(".email-invalid");
+      if (invalidEmail) {
+        invalidEmail.style.display = "block";
+        return false;
+      }
+    } else {
+      disableAllButtons(form);
+      var url = form.action;
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', url);
+      // xhr.withCredentials = true;
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function() {
+          console.log(xhr.status, xhr.statusText);
+          console.log(xhr.responseText);
 
     disableAllButtons(form);
     var url = form.action;
