@@ -6,6 +6,43 @@
     <meta name="description" content="contact form example">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <title>Contact Form Example</title>
+
+  <style> 
+    .label, .input {
+      display: inline-block;
+      vertical-align: middle;
+      /* Alternative to using float */
+    }
+
+    .boxDimensions {
+      width: 500px;
+      height: auto;
+    }
+
+    .form-control {
+      border: 0;
+      outline: none;
+    }
+
+    .noBorder {
+      border: 0;
+      box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
+    }
+
+    input {
+      border-top-style: hidden;
+      border-right-style: hidden;
+      border-left-style: hidden;
+      border-bottom-style: groove;
+      background-color: #eee;
+    }
+    
+    .no-outline:focus {
+      outline: none;
+    }
+
+  </style>
+
 </head>
 
 <body>
@@ -31,35 +68,32 @@
   action="https://script.google.com/macros/s/AKfycbyXmPw29jlocegDE7M4TKwJ2tIvZP5B3HtxefeXDUZQTAdIVuBB1BQ8FXST-mUhUCI8vA/exec">
     <!-- change the form action to your script url -->
 
-    <div class="form-elements form-floating mb-3">
+    <div class="boxDimensions form-elements form-floating mb-3">
       <fieldset class="pure-group">
         <label for="name">Name: </label>
         <input id="name" name="name" placeholder="What your Mom calls you" />
       </fieldset>
 
-      <fieldset class="pure-group">
+      <div class="boxDimensions  pure-group">
         <label for="message">Message: </label>
         <textarea id="message" name="message" rows="10"
         placeholder="Tell us what's on your mind..."></textarea>
-      </fieldset>
-
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"/>
-        <label for="floatingInput" style="line-height: 200px;"> Your Email Address:</label>
       </div>
 
-      <fieldset class="pure-group">
-        <label for="color">Favourite Color: </label>
-        <input id="color" name="color" placeholder="green" />
-      </fieldset>
+      <div class="boxDimensions form-floating mb-3">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"/>
+        <label class="labelAlign" for="floatingInput"> Your Email Address: </label>
+      </div>
+
+
+
 
       <div class="pure-group honeypot-field">
         <label for="honeypot">To help avoid spam, utilize a Honeypot technique with a hidden text field; must be empty to submit the form! Otherwise, we assume the user is a spam bot.</label>
         <input id="honeypot" type="text" name="honeypot" value="" />
       </div>
 
-      <button class="button-success pure-button button-xlarge">
-        <i class="fa fa-paper-plane"></i>&nbsp;Send</button>
+      <input class="btn btn-primary" type="submit" value="Submit">
     </div>
 
     <!-- Customise the Thankyou Message People See when they submit the form: -->
