@@ -43,20 +43,20 @@
         placeholder="Tell us what's on your mind..."></textarea>
       </fieldset>
 
-      <fieldset class="form-floating mb-3">
-        <label for="floatingInput"> Your Email Address:</label>
+      <div class="form-floating mb-3">
         <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"/>
-      </fieldset>
+        <label for="floatingInput" style="line-height: 200px;"> Your Email Address:</label>
+      </div>
 
       <fieldset class="pure-group">
         <label for="color">Favourite Color: </label>
         <input id="color" name="color" placeholder="green" />
       </fieldset>
 
-      <fieldset class="pure-group honeypot-field">
+      <div class="pure-group honeypot-field">
         <label for="honeypot">To help avoid spam, utilize a Honeypot technique with a hidden text field; must be empty to submit the form! Otherwise, we assume the user is a spam bot.</label>
         <input id="honeypot" type="text" name="honeypot" value="" />
-      </fieldset>
+      </div>
 
       <button class="button-success pure-button button-xlarge">
         <i class="fa fa-paper-plane"></i>&nbsp;Send</button>
