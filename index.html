@@ -81,10 +81,15 @@
 
       <!-- Add a first name and last name -->
 
-      <div class="boxDimensions pure-group">
+      <!-- <div class="boxDimensions pure-group">
         <label for="message">Message: </label>
         <textarea id="message" name="message" rows="10"
         placeholder="Tell us what's on your mind..."></textarea>
+      </div> -->
+
+      <div class="form-floating boxDimensions mb-3">
+        <textarea style="height: 200px;" type="text" rows="10" class="form-control" id="floatingInput" placeholder="Message"></textarea>
+        <label style="margin-top: 0%;" for="message">Message</label>
       </div>
 
       <!-- <fieldset class="boxDimensions form-floating mb-3 pure-group">
@@ -92,9 +97,9 @@
         <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
       </fieldset> -->
 
-      <div class="form-floating mb-3">
+      <div class="form-floating boxDimensions mb-3">
         <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label style="margin-top: 0%" for="floatingInput">Email address</label>
+        <label style="margin-top: 0%" for="email">Email address</label>
       </div>
 
       <div class="pure-group honeypot-field">
